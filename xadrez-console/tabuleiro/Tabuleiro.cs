@@ -14,5 +14,11 @@
             this.colunas = colunas;
             pecas = new Peca[linhas, colunas];
         }
+
+        // Método para retornar uma 'peca' referente a uma determinada linha e coluna  
+        public Peca peca(int linha, int coluna)
+        {
+            return pecas[linha, coluna];
+        }
     }
 }
