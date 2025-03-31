@@ -8,18 +8,28 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            // Instância um tabuleiro de xadrez
-            Tabuleiro tab = new Tabuleiro(8, 8);
+            // Tenta executar o bloco de código abaixo
+            try
+            {
+                // Instância um tabuleiro de xadrez
+                Tabuleiro tab = new Tabuleiro(8, 8);
 
-            // Coloca as peças no tabuleiro
-            tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-            tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
-            tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(2, 4));
+                // Coloca as peças no tabuleiro
+                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
+                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
+                tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(0, 2));
 
-            // Imprime a situação atual do tabuleiro em tela
-            Tela.imprimirTabuleiro(tab);
+                // Imprime a situação atual do tabuleiro em tela
+                Tela.imprimirTabuleiro(tab);
 
-            Console.ReadLine();
+                Console.ReadLine();
+            }
+            // Caso ocorra algum erro é lançada uma mensagem de erro
+            // referente a exceção personalizada
+            catch (TabuleiroException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
