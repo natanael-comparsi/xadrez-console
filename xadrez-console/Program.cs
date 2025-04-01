@@ -8,17 +8,29 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            // Instancia um novo objeto do tipo 'PosicaoXadrez
-            PosicaoXadrez pos = new PosicaoXadrez('c', 7);
+            // Tenta executar o bloco de código abaixo
+            try
+            {
+                // Instância um tabuleiro de xadrez
+                Tabuleiro tab = new Tabuleiro(8, 8);
 
-            // Imprime a posição real informada de um tabuleiro de xadrez 
-            Console.WriteLine(pos);
+                // Coloca as peças pretas no tabuleiro
+                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
+                tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
+                tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(0, 2));
 
-            // Converte a posição real de um tabuleiro de xadrez 
-            // para a posição da matriz do tabuleiro 
-            Console.WriteLine(pos.toPosicao());
+                // Coloca as peças brancas no tabuleiro
+                tab.colocarPeca(new Torre(tab, Cor.Branca), new Posicao(3, 5));
 
-            Console.ReadLine();
+                // Imprime a situação atual do tabuleiro em tela
+                Tela.imprimirTabuleiro(tab);
+            }
+            // Caso ocorra algum erro é lançada uma mensagem de erro
+            // referente a exceção personalizada
+            catch (TabuleiroException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

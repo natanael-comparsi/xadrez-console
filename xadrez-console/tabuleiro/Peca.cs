@@ -11,7 +11,7 @@
         // Método construtor contendo argumentos
         public Peca(Tabuleiro tab, Cor cor)
         {
-            this.posicao = null; // Quem define a posição é o método colocarPeca
+            this.posicao = null; // Quem define a posição é o método 'colocarPeca'
             this.tab = tab;
             this.cor = cor;
             this.qteMovimentos = 0;
