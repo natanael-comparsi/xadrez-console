@@ -50,6 +50,24 @@
             p.posicao = pos;
         }
 
+        // Retira uma peça de uma determinada posição do tabuleiro
+        public Peca retirarPeca(Posicao pos)
+        {
+            // Se a posição estiver nula significa que não existe uma peça nesta posição
+            if (peca(pos) == null)
+            {
+                return null;
+            }
+            // Armazena a peça retirada da posição do tabuleiro
+            Peca aux = peca(pos);
+            // Define a posição da peça retirada como nula
+            aux.posicao = null;
+            // Define a posição do tabuleiro como nula
+            pecas[pos.linha, pos.coluna] = null;
+            // Retorna a peça removida do tabuleiro
+            return aux;
+        }
+
         // Retorna se uma determinada posição é valida ou não no tabuleiro
         public bool posicaoValida(Posicao pos)
         {

@@ -16,5 +16,11 @@
             this.cor = cor;
             this.qteMovimentos = 0;
         }
+
+        // Incrementa um movimento a peca
+        public void incrementarQteMovimentos()
+        {
+            qteMovimentos++;
+        }
     }
 }

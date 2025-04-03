@@ -1,5 +1,6 @@
 ﻿using System;
 using tabuleiro;
+using xadrez;
 
 namespace xadrez_console
 {
@@ -32,6 +33,19 @@ namespace xadrez_console
                 Console.WriteLine(); // Realiza uma quebra de linha
             }
             Console.WriteLine("  a b c d e f g h"); // Imprime a posição das colunas do tabuleiro
+        }
+
+        // Le e retorna uma posição do tabuleiro de xadrez inserida em tela pelo usário 
+        public static PosicaoXadrez lerPosicaoXadrez()
+        {
+            // Armazenda a posição inserida pelo usuário
+            string s = Console.ReadLine();
+            // define a coluna como sendo o primeiro caractere
+            char coluna = s[0];
+            // define a linha como sendo o segundo caractere
+            int linha = int.Parse(s[1] + "");
+            // Retorna um objeto contendo uma posição do tabuleiro do xadrez
+            return new PosicaoXadrez(coluna, linha);
         }
 
         // Imprime uma peça na tela com a sua cor correspondente ao tipo da peça 
