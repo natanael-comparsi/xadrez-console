@@ -13,6 +13,13 @@
             this.coluna = coluna;
         }
 
+        // Método para definir uma linha e uma coluna a uma determinada posição
+        public void definirValores(int linha, int coluna)
+        {
+            this.linha = linha;
+            this.coluna = coluna;
+        } 
+
         // Sobrescrita do método ToString
         public override string ToString()
         {

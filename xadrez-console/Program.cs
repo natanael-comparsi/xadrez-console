@@ -17,7 +17,7 @@ namespace xadrez_console
                 // Enquanto a partida não estiver terminada
                 while (!partida.terminada)
                 {
-                    // Limpa o console
+                    // limpa a tela do console
                     Console.Clear();
                     // Imprime o tabuleio atualizado no console
                     Tela.imprimirTabuleiro(partida.tab);
@@ -26,7 +26,17 @@ namespace xadrez_console
                     // Solicita a inserção da posição da peça de origem ao usuário
                     Console.Write("Origem: ");
                     // Converte a posição lida para a posição da matriz correspondente
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao(); 
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+
+                    // Instância uma matriz de booleanos contendo os movimentos possiveis de uma determinada peça
+                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+
+                    // limpa a tela do console
+                    Console.Clear();
+                    // Imprime o tabuleiro em tela contendo as posições possiveis da movimentação de uma determina peça
+                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+                    Console.WriteLine();
+
                     // Solicita a inserção da posição da peça de destino ao usuário
                     Console.Write("Destino: ");
                     // Converte a posição lida para a posição da matriz correspondente

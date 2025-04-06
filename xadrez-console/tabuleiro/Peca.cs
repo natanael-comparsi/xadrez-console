@@ -1,6 +1,6 @@
 ﻿namespace tabuleiro
 {
-    class Peca
+    abstract class Peca
     {
         // Propriedades autoimplementadas
         public Posicao posicao { get; set; }
@@ -22,5 +22,8 @@
         {
             qteMovimentos++;
         }
+
+        // Método para retornar os movimentos possiveis de uma peça do tipo 'Rei'
+        public abstract bool[,] movimentosPossiveis();
     }
 }

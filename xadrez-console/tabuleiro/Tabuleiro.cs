@@ -30,9 +30,8 @@
         // Retorna se uma peça existe em uma determinada posição recebida por parâmetro
         public bool existePeca(Posicao pos)
         {
-            // Valida se a posição é valida
             validarPosicao(pos);
-            // Caso a mesma seja valida verifica se existe uma peça na posição
+            // Verifica se existe uma peça na posição
             return peca(pos) != null;
         }
 
@@ -72,7 +71,7 @@
         public bool posicaoValida(Posicao pos)
         {
             // A posição não é valida se for alguma linha ou coluna que não exista no tabuleiro
-            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna > colunas)
+            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >=  colunas)
             {
                 return false;
             }
