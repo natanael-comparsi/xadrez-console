@@ -23,6 +23,31 @@
             qteMovimentos++;
         }
 
+        // Retorna se a peça pode se mover para alguma posição no tabuleiro a partir da posição que ela está ou não
+        public bool existeMovimentosPossiveis()
+        {
+            bool[,] mat = movimentosPossiveis();
+
+            // Percorre todas as linhas e colunas do tabuleiro
+            for (int i = 0; i < tab.linhas; i++)
+            {
+                for (int j = 0; j < tab.colunas; j++)
+                {
+                    if(mat[i, j])
+                    {
+                        return true; // Retorna true se existir algum movimento possivel
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Retorna se uma peça pode ou não ser movida para uma determinada posição
+        public bool podeMoverPara(Posicao pos)
+        {
+            return movimentosPossiveis()[pos.linha, pos.coluna];
+        }
+
         // Método para retornar os movimentos possiveis de uma peça do tipo 'Rei'
         public abstract bool[,] movimentosPossiveis();
     }

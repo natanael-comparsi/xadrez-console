@@ -17,33 +17,56 @@ namespace xadrez_console
                 // Enquanto a partida não estiver terminada
                 while (!partida.terminada)
                 {
-                    // limpa a tela do console
-                    Console.Clear();
-                    // Imprime o tabuleio atualizado no console
-                    Tela.imprimirTabuleiro(partida.tab);
+                    // Tenta executar o bloco de código abaixo
+                    try
+                    {
+                        // limpa a tela do console
+                        Console.Clear();
+                        // Imprime o tabuleio atualizado no console
+                        Tela.imprimirTabuleiro(partida.tab);
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-                    // Solicita a inserção da posição da peça de origem ao usuário
-                    Console.Write("Origem: ");
-                    // Converte a posição lida para a posição da matriz correspondente
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                        // Imprime em qual turno está partida 
+                        Console.WriteLine("Turno: " + partida.turno);
+                        // Imprime o jogador atual
+                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
 
-                    // Instância uma matriz de booleanos contendo os movimentos possiveis de uma determinada peça
-                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+                        Console.WriteLine();
+                        // Solicita a inserção da posição da peça de origem ao usuário
+                        Console.Write("Origem: ");
+                        // Converte a posição lida para a posição da matriz correspondente
+                        Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
 
-                    // limpa a tela do console
-                    Console.Clear();
-                    // Imprime o tabuleiro em tela contendo as posições possiveis da movimentação de uma determina peça
-                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
-                    Console.WriteLine();
+                        // Valida a posição de origem inserida pelo usuário
+                        partida.validarPosicaoDeOrigem(origem);
 
-                    // Solicita a inserção da posição da peça de destino ao usuário
-                    Console.Write("Destino: ");
-                    // Converte a posição lida para a posição da matriz correspondente
-                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        // Instância uma matriz de booleanos contendo os movimentos possiveis de uma determinada peça
+                        bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
 
-                    // Executa o movimento da peça existente na posição de origem informada
-                    partida.executaMovimento(origem, destino);
+                        // limpa a tela do console
+                        Console.Clear();
+                        // Imprime o tabuleiro em tela contendo as posições possiveis da movimentação de uma determina peça
+                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+                        Console.WriteLine();
+
+                        // Solicita a inserção da posição da peça de destino ao usuário
+                        Console.Write("Destino: ");
+                        // Converte a posição lida para a posição da matriz correspondente
+                        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+
+                        // Valida a posição de destino a ser movida a peça
+                        partida.validarPosicaoDeDestino(origem, destino);
+
+                        // Executa o movimento da peça existente na posição de origem informada
+                        partida.realizaJogada(origem, destino);
+                    }
+                    // Caso ocorra algum erro é lançada uma mensagem de erro
+                    // referente a exceção personalizada
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
             }
             // Caso ocorra algum erro é lançada uma mensagem de erro
