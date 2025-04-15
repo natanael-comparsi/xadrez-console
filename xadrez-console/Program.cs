@@ -22,14 +22,9 @@ namespace xadrez_console
                     {
                         // limpa a tela do console
                         Console.Clear();
-                        // Imprime o tabuleio atualizado no console
-                        Tela.imprimirTabuleiro(partida.tab);
-                        Console.WriteLine();
 
-                        // Imprime em qual turno está partida 
-                        Console.WriteLine("Turno: " + partida.turno);
-                        // Imprime o jogador atual
-                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                        // Imprime a partida atual em tela
+                        Tela.imprimirPartida(partida);
 
                         Console.WriteLine();
                         // Solicita a inserção da posição da peça de origem ao usuário

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using tabuleiro;
 using xadrez;
 
@@ -6,6 +7,52 @@ namespace xadrez_console
 {
     class Tela
     {
+        // Método para imprimir uma partida de xadrez em tela
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            // Imprime o tabuleiro atualizado no console
+            Tela.imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+
+            // Imprime as peças capturadas de ambas as cores em tela
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+
+            // Imprime em qual turno está a partida 
+            Console.WriteLine("Turno: " + partida.turno);
+            // Imprime o jogador atual
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+        }
+
+        // Método para imprimir as peças capturadas em uma partida de xadrez
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            // Imprime as peças brancas e pretas capturadas em tela
+            Console.WriteLine("Peças capturadas:");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            // As peças pretas capturadas são imprimidas na cor amarela
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;
+            Console.WriteLine();
+        }
+
+        // Imprime os elementos existentes em um determinado conjunto entre colchetes 
+        public static void imprimirConjunto(HashSet<Peca> conjunto)
+        {
+            // Percorre os elementos do conjunto e imprime os mesmos entre colchetes
+            Console.Write("[");
+            foreach (Peca x in conjunto)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
+
         // Imprime um tabuleiro na tela
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
