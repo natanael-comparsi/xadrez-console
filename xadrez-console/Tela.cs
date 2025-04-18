@@ -22,6 +22,12 @@ namespace xadrez_console
             Console.WriteLine("Turno: " + partida.turno);
             // Imprime o jogador atual
             Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+
+            // Se a partida estiver em 'Xeque' retorna em tela
+            if (partida.xeque)
+            {
+                Console.WriteLine("Xeque!");
+            }
         }
 
         // Método para imprimir as peças capturadas em uma partida de xadrez

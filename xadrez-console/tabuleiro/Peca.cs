@@ -23,6 +23,12 @@
             qteMovimentos++;
         }
 
+        // Decrementa um movimento da peca
+        public void decrementarQteMovimentos()
+        {
+            qteMovimentos--;
+        }
+
         // Retorna se a peça pode se mover para alguma posição no tabuleiro a partir da posição que ela está ou não
         public bool existeMovimentosPossiveis()
         {
