@@ -63,6 +63,9 @@ namespace xadrez_console
                         Console.ReadLine();
                     }
                 }
+                // Limpa a tela e imprime o vencedor da partida
+                Console.Clear();
+                Tela.imprimirPartida(partida);
             }
             // Caso ocorra algum erro é lançada uma mensagem de erro
             // referente a exceção personalizada

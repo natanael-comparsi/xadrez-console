@@ -96,10 +96,18 @@ namespace xadrez
             {
                 xeque = false;
             }
-
-            // Incrementa o turno e muda o jogador
-            turno++;
-            mudaJogador();
+           
+            // Se o adversário do jogador atual estiver em xeque-mate termina a partida
+            if (testeXequemate(adversaria(jogadorAtual)))
+            {
+                terminada = true;
+            }
+            else
+            {
+                // Incrementa o turno e muda o jogador
+                turno++;
+                mudaJogador();
+            }
         }
 
         // Valida a posição de origem e retorna uma mensagem de erro referente a exceção personalizada 
@@ -238,6 +246,53 @@ namespace xadrez
             return false;
         }
 
+        // Método para testar se o 'Rei' de uma determinada cor está em xequemate 
+        public bool testeXequemate(Cor cor)
+        {
+            // Se não estiver em xeque 
+            if (!estaEmXeque(cor))
+            {
+                return false;
+            }
+            
+            // Percorre as peças em jogo existentes de uma determinada cor
+            foreach (Peca x in pecasEmJogo(cor))
+            {
+                // Atribui a um array os movimentos possiveis de uma determinada peça em jogo    
+                bool[,] mat = x.movimentosPossiveis();
+
+                // Percorre as linhas e as colunas do tabuleiro
+                for (int i = 0; i < tab.linhas; i++)
+                {
+                    for (int j = 0; j < tab.colunas; j++)
+                    {
+                        // Se a posição existir na matriz significa que é um movimento possivel
+                        if (mat[i, j])
+                        {
+                            // Armazena a posição de origem
+                            Posicao origem = x.posicao;
+                            // Define a posição de destino como sendo a possição do movimento possivel
+                            Posicao destino = new Posicao(i, j);
+                            // Executa o movimento e armazena a peça capturada caso exista uma peça na posição de destino
+                            Peca pecaCapturada = executaMovimento(origem, destino);
+                            // Retorna se o 'Rei' adversário está em Xeque
+                            bool testeXeque = estaEmXeque(cor);
+                            // Desfaz o movimento realizado
+                            desfazMovimento(origem, destino, pecaCapturada);
+                            // Caso em algum movimento possivel da peça o Rei adversário não esteja em 'Xeque'
+                            // significa que o Rei adversário não está em 'Xequemate'
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            // Caso não retorne falso significa que o 'Rei' adversário está em xequemate
+            return true;
+        }
+
         // Método para colocar uma nova peça em uma determinada linha e coluna do tabuleiro
         public void colocarNovaPeca(char coluna, int linha, Peca peca)
         {
@@ -251,19 +306,12 @@ namespace xadrez
         {
             // Coloca as peças brancas no tabuleiro
             colocarNovaPeca('c', 1, new Torre(tab, Cor.Branca));
-            colocarNovaPeca('c', 2, new Torre(tab, Cor.Branca));
-            colocarNovaPeca('d', 2, new Torre(tab, Cor.Branca));
-            colocarNovaPeca('e', 2, new Torre(tab, Cor.Branca));
-            colocarNovaPeca('e', 1, new Torre(tab, Cor.Branca));
             colocarNovaPeca('d', 1, new Rei(tab, Cor.Branca));
+            colocarNovaPeca('h', 7, new Torre(tab, Cor.Branca));
 
             // Coloca as peças pretas no tabuleiro
-            colocarNovaPeca('c', 7, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('c', 8, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('d', 7, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('e', 7, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('e', 8, new Torre(tab, Cor.Preta));
-            colocarNovaPeca('d', 8, new Rei(tab, Cor.Preta));
+            colocarNovaPeca('a', 8, new Rei(tab, Cor.Preta));
+            colocarNovaPeca('b', 8, new Torre(tab, Cor.Preta));
         }
     }
 }
