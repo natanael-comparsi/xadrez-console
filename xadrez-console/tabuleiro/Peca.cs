@@ -49,7 +49,7 @@
         }
 
         // Retorna se uma peça pode ou não ser movida para uma determinada posição
-        public bool podeMoverPara(Posicao pos)
+        public bool movimentoPossivel(Posicao pos)
         {
             return movimentosPossiveis()[pos.linha, pos.coluna];
         }
