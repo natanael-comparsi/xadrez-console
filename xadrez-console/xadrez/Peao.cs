@@ -5,9 +5,13 @@ namespace xadrez
     // Herda os atributos e métodos da classe base 'Peca'
     class Peao : Peca
     {
+        // Armazena o objeto do tipo partida de xadrez
+        private PartidaDeXadrez partida;
+
         // Método construtor implementado a partir do construtor da classe base
-        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor)
+        public Peao(Tabuleiro tab, Cor cor, PartidaDeXadrez partida) : base(tab, cor)
         {
+            this.partida = partida;
         }
 
         // Sobrescrita do método ToString
@@ -76,6 +80,27 @@ namespace xadrez
                 {
                     mat[pos.linha, pos.coluna] = true;
                 }
+
+                // jogada especial en passant
+                // Caso o peão esteja na linha 3
+                if (posicao.linha == 3)
+                {
+                    // Armazena a posição a esquerda do peao
+                    Posicao esquerda = new Posicao(posicao.linha, posicao.coluna - 1);
+                    // Valida se o peao pode executar a jogada en passant para a esquerda e define a jogada como possivel caso sim
+                    if (tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partida.vulneravelEnPassant)
+                    {
+                        mat[esquerda.linha - 1, esquerda.coluna] = true;
+                    }
+
+                    // Armazena a posição a direita do peao
+                    Posicao direita = new Posicao(posicao.linha, posicao.coluna + 1);
+                    // Valida se o peao pode executar a jogada en passant para a direita e define a jogada como possivel caso sim
+                    if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partida.vulneravelEnPassant)
+                    {
+                        mat[direita.linha - 1, direita.coluna] = true;
+                    }
+                }
             }
             // Se a cor do peão for preta
             else
@@ -111,6 +136,27 @@ namespace xadrez
                 if (tab.posicaoValida(pos) && existeInimigo(pos))
                 {
                     mat[pos.linha, pos.coluna] = true;
+                }
+
+                // jogada especial en passant
+                // Caso o peão esteja na linha 4
+                if (posicao.linha == 4)
+                {
+                    // Armazena a posição a esquerda do peao
+                    Posicao esquerda = new Posicao(posicao.linha, posicao.coluna - 1);
+                    // Valida se o peao pode executar a jogada en passant para a esquerda e define a jogada como possivel caso sim
+                    if (tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partida.vulneravelEnPassant)
+                    {
+                        mat[esquerda.linha + 1, esquerda.coluna] = true;
+                    }
+
+                    // Armazena a posição a direita do peao
+                    Posicao direita = new Posicao(posicao.linha, posicao.coluna + 1);
+                    // Valida se o peao pode executar a jogada en passant para a direita e define a jogada como possivel caso sim
+                    if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partida.vulneravelEnPassant)
+                    {
+                        mat[direita.linha + 1, direita.coluna] = true;
+                    }
                 }
             }
 
